@@ -94,22 +94,22 @@ class MainWindow(QMainWindow):
     def get_input(self):
         """Get the text from the food inputs and generate a random output"""
         output = ""
-        f1 = self.f1_input.text()
-        f2 = self.f2_input.text()
-        f3 = self.f3_input.text()
 
         # Random Generator
-        num = random.randint(1,3)
-
+        num = random.randint(0,2)
+        input_list = [self.f1_input, self.f2_input, self.f3_input]
+        output = input_list[num].text()
+        print(output)
+        print(num)
         # Outputs
-        if num == 1:
-            output = f'You should eat {f1}.'
-        elif num == 2:
-            output = f'You should eat {f2}.'
-        else:
-            output = f'You should eat {f3}.'
+        #if num == 1:
+        #    output = f'You should eat {f1}.'
+        #elif num == 2:
+        #    output = f'You should eat {f2}.'
+        #else:
+        #    output = f'You should eat {f3}.'
 
-        self.answer_label.setText(output)
+        self.answer_label.setText(f'you should eat {output}.')
 
     def clear_inputs(self):
         """Clear the text in the inputs and reset the output label"""
