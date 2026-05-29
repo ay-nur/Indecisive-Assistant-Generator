@@ -5,6 +5,7 @@ A basic calculator GUI app that takes the initial price of the game and the sale
 """
 
 import sys
+from options import OptionsWindow
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QApplication,

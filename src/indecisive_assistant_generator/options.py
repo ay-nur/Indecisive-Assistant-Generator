@@ -22,7 +22,7 @@ from PySide6.QtWidgets import (
 
 import random
 
-class MainWindow(QMainWindow):
+class OptionsWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
@@ -51,9 +51,11 @@ class MainWindow(QMainWindow):
         button_layout = QHBoxLayout()
         generate_button = QPushButton("Generate")
         clear_button = QPushButton("Clear")
+        #back_button = QPushButton("Back")
 
         generate_button.clicked.connect(self.get_input)
         clear_button.clicked.connect(self.clear_inputs)
+        #back_button.clicked.connect(controller.)
 
         button_layout.setContentsMargins(20,20,20,20)
 
@@ -99,8 +101,7 @@ class MainWindow(QMainWindow):
         num = random.randint(0,2)
         input_list = [self.f1_input, self.f2_input, self.f3_input]
         output = input_list[num].text()
-        print(output)
-        print(num)
+        
         # Outputs
         #if num == 1:
         #    output = f'You should eat {f1}.'
@@ -109,7 +110,7 @@ class MainWindow(QMainWindow):
         #else:
         #    output = f'You should eat {f3}.'
 
-        self.answer_label.setText(f'you should eat {output}.')
+        self.answer_label.setText(f'You should eat {output}.')
 
     def clear_inputs(self):
         """Clear the text in the inputs and reset the output label"""
@@ -120,7 +121,7 @@ class MainWindow(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = MainWindow()
+    window = OptionsWindow()
     window.show()
 
     app.exec()
