@@ -22,7 +22,7 @@ from PySide6.QtWidgets import (
 
 import random
 
-class MainWindow(QMainWindow):
+class QuestionsWindow(QWidget):
     def __init__(self):
         super().__init__()
 
@@ -77,11 +77,8 @@ class MainWindow(QMainWindow):
         # [OPTIONAL] Add a stretch to move everything up
         layout.addStretch()
 
-        widget = QWidget()
-        widget.setLayout(layout)
+        self.setLayout(layout)
 
-        # Set the central widget of the Window.
-        self.setCentralWidget(widget)
     
     def get_input(self):
         """Get the text from the food inputs and generate a random output"""
@@ -104,7 +101,7 @@ class MainWindow(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = MainWindow()
+    window = QuestionsWindow()
     window.show()
 
     app.exec()

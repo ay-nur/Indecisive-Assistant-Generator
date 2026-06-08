@@ -22,7 +22,7 @@ from PySide6.QtWidgets import (
 
 import random
 
-class OptionsWindow(QMainWindow):
+class OptionsWindow(QWidget):
     def __init__(self):
         super().__init__()
 
@@ -31,9 +31,9 @@ class OptionsWindow(QMainWindow):
         self.resize(320, 350)
 
         layout = QVBoxLayout()
-        title_label = QLabel("Food")
-        title_label.setContentsMargins(0,0,0,12)
-        title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.options_label = QLabel("Food")
+        self.options_label.setContentsMargins(0,0,0,12)
+        self.options_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         # Get user input
         input_layout = QVBoxLayout()
@@ -72,12 +72,12 @@ class OptionsWindow(QMainWindow):
         self.answer_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         # TODO: add stylesheets
-        title_label.setStyleSheet("font-size: 20px; font-weight: bold;")
+        self.options_label.setStyleSheet("font-size: 20px; font-weight: bold;")
         self.output_label.setStyleSheet("font-size: 14px;")
         self.answer_label.setStyleSheet("font-size: 14px;")
 
         # add widgets & layouts to main layout
-        layout.addWidget(title_label)
+        layout.addWidget(self.options_label)
         layout.addWidget(self.output_label)
         layout.addLayout(input_layout)
         layout.addLayout(button_layout)
@@ -87,30 +87,19 @@ class OptionsWindow(QMainWindow):
         # [OPTIONAL] Add a stretch to move everything up
         layout.addStretch()
 
-        widget = QWidget()
-        widget.setLayout(layout)
+        self.setLayout(layout)
 
-        # Set the central widget of the Window.
-        self.setCentralWidget(widget)
     
     def get_input(self):
         """Get the text from the food inputs and generate a random output"""
-        output = ""
+        self.output = ""
 
         # Random Generator
         num = random.randint(0,2)
         input_list = [self.f1_input, self.f2_input, self.f3_input]
-        output = input_list[num].text()
+        self.output = input_list[num].text()
         
-        # Outputs
-        #if num == 1:
-        #    output = f'You should eat {f1}.'
-        #elif num == 2:
-        #    output = f'You should eat {f2}.'
-        #else:
-        #    output = f'You should eat {f3}.'
-
-        self.answer_label.setText(f'You should eat {output}.')
+        self.answer_label.setText(f'{self.output}')
 
     def clear_inputs(self):
         """Clear the text in the inputs and reset the output label"""
