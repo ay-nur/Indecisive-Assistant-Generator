@@ -8,6 +8,7 @@ import sys
 from options import OptionsWindow
 from questions import QuestionsWindow
 from PySide6.QtCore import Qt
+#from Pyside6.QtGui import QFont
 from PySide6.QtWidgets import (
     QApplication,
     QSpinBox,
@@ -24,6 +25,19 @@ from PySide6.QtWidgets import (
 
 )
 
+stylesheet = """
+QMainWindow {
+    background-color: #EFE8C4;
+    }
+QLineEdit {
+    background-color: #F0DFAD;
+    color: #6C3B18;
+    }
+QPushButton {
+    background-color: #D8BF90;
+    color: #6C3B18;
+    }
+"""
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -31,30 +45,32 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("Indecisive Assistant Generator")
         self.setContentsMargins(12, 12, 12, 12)
-        self.resize(320, 300)
+        self.resize(440, 600)
 
         self.main_layout = QStackedLayout()
         layout = QVBoxLayout()
-        title_label = QLabel("Indecisive Assistant Generator")
-        title_label.setContentsMargins(0,0,0,12)
+        self.title_label = QLabel("Indecisive Assistant Generator")
+        self.title_label.setContentsMargins(0,0,0,12)
+        self.title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         # add buttons
-        button_layout = QVBoxLayout()
-        food_button = QPushButton("Food")
-        food_button.clicked.connect(self.get_options)
-        movie_button = QPushButton("Movies")
-        movie_button.clicked.connect(self.get_options)
-        activity_button = QPushButton("Activities")
-        activity_button.clicked.connect(self.get_options)
-        question_button = QPushButton("Ask")
-        question_button.clicked.connect(self.ask_question)
+        self.button_layout = QHBoxLayout()
+        self.food_button = QPushButton("Food")
+        self.food_button.clicked.connect(self.get_options)
+        self.movie_button = QPushButton("Movies")
+        self.movie_button.clicked.connect(self.get_options)
+        self.activity_button = QPushButton("Activities")
+        self.activity_button.clicked.connect(self.get_options)
+        self.question_button = QPushButton("Ask")
+        self.question_button.clicked.connect(self.ask_question)
 
-        button_layout.setContentsMargins(20,20,20,20)
+        self.button_layout.setContentsMargins(20,20,20,20)
+        self.button_layout.setProperty("cssClass", "buttons")
 
-        button_layout.addWidget(food_button)
-        button_layout.addWidget(movie_button)
-        button_layout.addWidget(activity_button)
-        button_layout.addWidget(question_button)
+        self.button_layout.addWidget(self.food_button)
+        self.button_layout.addWidget(self.movie_button)
+        self.button_layout.addWidget(self.activity_button)
+        self.button_layout.addWidget(self.question_button)
 
         # TODO: add instructions
         self.instructions = "Pick a topic that is closest to the genre of your indecisive factor."
@@ -69,13 +85,13 @@ class MainWindow(QMainWindow):
         self.main_layout.setCurrentWidget(self.options)
 
         # TODO: add stylesheets
-        title_label.setStyleSheet("font-size: 20px; font-weight: bold;")
-        self.output_label.setStyleSheet("font-size: 14px;")
+        self.title_label.setStyleSheet("font-size: 20px; font-weight: bold; color: #AA4465")
+        self.output_label.setStyleSheet("font-size: 14px; color: #6C3B18")
 
         # add widgets & layouts to main layout
-        layout.addWidget(title_label)
+        layout.addWidget(self.title_label)
         layout.addWidget(self.output_label)
-        layout.addLayout(button_layout)
+        layout.addLayout(self.button_layout)
         layout.addLayout(self.main_layout)
 
         # [OPTIONAL] Add a stretch to move everything up
@@ -107,8 +123,12 @@ class MainWindow(QMainWindow):
 
         self.main_layout.setCurrentWidget(self.options)
 
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+
+    app.setStyleSheet(stylesheet)
+    
     window = MainWindow()
     window.show()
 

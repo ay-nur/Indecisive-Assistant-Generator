@@ -31,21 +31,24 @@ class OptionsWindow(QWidget):
         self.resize(320, 350)
 
         layout = QVBoxLayout()
-        self.options_label = QLabel("Food")
+        self.options_label = QLabel("")
+        self.options_label.setProperty("cssClass", "options_title")
         self.options_label.setContentsMargins(0,0,0,12)
         self.options_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         # Get user input
-        input_layout = QVBoxLayout()
+        self.input_layout = QVBoxLayout()
+
         self.f1_input = QLineEdit(placeholderText="Option 1")
         self.f2_input = QLineEdit(placeholderText="Option 2")
         self.f3_input = QLineEdit(placeholderText="Option 3")
 
-        input_layout.setContentsMargins(20,20,20,0)
+        self.input_layout.setContentsMargins(20,20,20,0)
+        self.input_layout.setProperty("cssClass", "options_input")
 
-        input_layout.addWidget(self.f1_input)
-        input_layout.addWidget(self.f2_input)
-        input_layout.addWidget(self.f3_input)
+        self.input_layout.addWidget(self.f1_input)
+        self.input_layout.addWidget(self.f2_input)
+        self.input_layout.addWidget(self.f3_input)
 
         # add buttons
         button_layout = QHBoxLayout()
@@ -63,8 +66,9 @@ class OptionsWindow(QWidget):
         button_layout.addWidget(clear_button)
 
         # TODO: add instructions
-        self.instructions = "Enter your top 3 places to eat out at or your top 3 choices to cook."
+        self.instructions = ""
         self.output_label = QLabel(self.instructions)
+        self.output_label.setContentsMargins(10,10,10,10)
         self.output_label.setWordWrap(True)
         self.answer_label = QLabel()
 
@@ -72,14 +76,14 @@ class OptionsWindow(QWidget):
         self.answer_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         # TODO: add stylesheets
-        self.options_label.setStyleSheet("font-size: 20px; font-weight: bold;")
-        self.output_label.setStyleSheet("font-size: 14px;")
-        self.answer_label.setStyleSheet("font-size: 14px;")
+        self.options_label.setStyleSheet("font-size: 30px; font-weight: bold; color: #AA4465")
+        self.output_label.setStyleSheet("font-size: 14px; color: #6C3B18")
+        self.answer_label.setStyleSheet("font-size: 14px; color: #AA4465")
 
         # add widgets & layouts to main layout
         layout.addWidget(self.options_label)
         layout.addWidget(self.output_label)
-        layout.addLayout(input_layout)
+        layout.addLayout(self.input_layout)
         layout.addLayout(button_layout)
         layout.addWidget(self.answer_label)
         
