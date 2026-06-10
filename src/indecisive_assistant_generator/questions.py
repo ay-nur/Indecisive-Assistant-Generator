@@ -31,9 +31,10 @@ class QuestionsWindow(QWidget):
         self.resize(320, 350)
 
         layout = QVBoxLayout()
-        title_label = QLabel("Yes or No")
-        title_label.setContentsMargins(0,0,0,12)
-        title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.title_label = QLabel("Yes or No")
+        self.title_label.setContentsMargins(0,0,0,12)
+        self.title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.title_label.setProperty("cssClass", "questions_title")
 
         # Get user input
         self.question_input = QLineEdit(placeholderText="Question")
@@ -54,6 +55,8 @@ class QuestionsWindow(QWidget):
         # TODO: add instructions
         self.instructions = "Ask a Yes or No question then click the generator to get your answer."
         self.output_label = QLabel(self.instructions)
+        self.output_label.setProperty("cssClass", "output_layout")
+
         self.output_label.setWordWrap(True)
         self.answer_label = QLabel()
 
@@ -62,18 +65,17 @@ class QuestionsWindow(QWidget):
         self.answer_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         # TODO: add stylesheets
-        title_label.setStyleSheet("font-size: 20px; font-weight: bold;")
-        self.output_label.setStyleSheet("font-size: 14px;")
-        self.answer_label.setStyleSheet("font-size: 20px;")
+        self.title_label.setStyleSheet("font-size: 30px; font-weight: bold; color: #AA4465;")
+        self.output_label.setStyleSheet("font-size: 14px; color: #6C3B18;")
+        self.answer_label.setStyleSheet("font-size: 20px; color: #AA4465;")
 
         # add widgets & layouts to main layout
-        layout.addWidget(title_label)
+        layout.addWidget(self.title_label)
         layout.addWidget(self.output_label)
         layout.addWidget(self.question_input)
         layout.addLayout(button_layout)
         layout.addWidget(self.answer_label)
         
-
         # [OPTIONAL] Add a stretch to move everything up
         layout.addStretch()
 

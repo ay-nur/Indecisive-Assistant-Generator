@@ -123,6 +123,15 @@ class MainWindow(QMainWindow):
 
         self.main_layout.setCurrentWidget(self.options)
 
+    def save_list(self):
+        # Get data from list
+
+        # store as a dictionary
+
+        # save it to data folder
+
+        pass
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

@@ -5,6 +5,8 @@ A basic calculator GUI app that takes the initial price of the game and the sale
 """
 
 import sys
+import json
+import controller
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QApplication,
@@ -54,11 +56,9 @@ class OptionsWindow(QWidget):
         button_layout = QHBoxLayout()
         generate_button = QPushButton("Generate")
         clear_button = QPushButton("Clear")
-        #back_button = QPushButton("Back")
 
         generate_button.clicked.connect(self.get_input)
         clear_button.clicked.connect(self.clear_inputs)
-        #back_button.clicked.connect(controller.)
 
         button_layout.setContentsMargins(20,20,20,20)
 
@@ -86,7 +86,6 @@ class OptionsWindow(QWidget):
         layout.addLayout(self.input_layout)
         layout.addLayout(button_layout)
         layout.addWidget(self.answer_label)
-        
 
         # [OPTIONAL] Add a stretch to move everything up
         layout.addStretch()
@@ -103,7 +102,16 @@ class OptionsWindow(QWidget):
         input_list = [self.f1_input, self.f2_input, self.f3_input]
         self.output = input_list[num].text()
         
-        self.answer_label.setText(f'{self.output}')
+        self.answer_label.setText(f'You should pick {self.output}.')
+
+        # Store Info
+        file_name = self.options_label.text() + ".json"
+        data = {"name": self.options_label.text(),
+                "pick": self.output}
+        data = json.dumps(data)
+        success = controller.store_data(file_name, data)
+        print(success)
+        
 
     def clear_inputs(self):
         """Clear the text in the inputs and reset the output label"""
